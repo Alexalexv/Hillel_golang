@@ -80,8 +80,9 @@ func main() {
 		fmt.Println("it`s second BANANA!")
 	case fruit == "apple":
 		fmt.Println("it`s second APPLE!")
+		fallthrough
 	case fruit == "pineapple":
-		fmt.Println("it`s second PINAPPLE!")
+		fmt.Println("it`s second PINAPPLE or APPLE!")
 	}
 
 	//7
