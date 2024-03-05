@@ -14,7 +14,7 @@ func main() {
 	chess.game.Rounds = 1
 
 	//4 (6)
-	sl := make([]TableGame, 3, 3)
+	sl := make([]TableGame, 3)
 	sl[0] = chess
 
 	//5
