@@ -163,10 +163,8 @@ func main() {
 			myRace.IncreaseTigerDistanse()
 			if myRace.tigerDistanse >= myRace.distanse {
 				myRace.board[myRace.lap] = myTiger.animal.name
-				if myRace.tigerDistanse >= myRace.distanse {
-					myRace.board[myRace.lap] = myTiger.animal.name
-					myRace.FinishPrinter(myTiger.entityName, myTiger.animal.ifLooseSay, myTiger.animal.ifLooseSay)
-				}
+				myRace.FinishPrinter(myTiger.entityName, myTiger.animal.ifLooseSay, myTiger.animal.ifLooseSay)
+
 			}
 
 		}
@@ -174,10 +172,9 @@ func main() {
 			myRace.IncreaseFishDistanse()
 			if myRace.fishDistanse >= myRace.distanse {
 				myRace.board[myRace.lap] = myFish.animal.name
-				if myRace.fishDistanse >= myRace.distanse {
-					myRace.board[myRace.lap] = myFish.animal.name
-					myRace.FinishPrinter(myFish.entityName, myFish.animal.ifLooseSay, myFish.animal.ifLooseSay)
-				}
+
+				myRace.FinishPrinter(myFish.entityName, myFish.animal.ifLooseSay, myFish.animal.ifLooseSay)
+
 			}
 
 		}
