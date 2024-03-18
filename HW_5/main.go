@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"errors"
 	"math/rand"
 )
 
@@ -31,8 +31,11 @@ func (ig intGenerator) GenerateSlice() interface{} {
 	return []int{0}
 }
 
-func (ig intGenerator) GenerateWithParam(param int) interface{} {
-	return rand.Intn(param + 1)
+func (ig intGenerator) GenerateWithParam(param int) (interface{}, error) {
+	if param < 0 {
+		return nil, errors.New("param can`t be less than zero")
+	}
+	return rand.Intn(param + 1), nil
 }
 
 //string
@@ -49,12 +52,15 @@ func (sg strGenerator) GenerateSlice() interface{} {
 	return []string{" "}
 }
 
-func (sg strGenerator) GenerateWithParam(param int) interface{} {
+func (sg strGenerator) GenerateWithParam(param int) (interface{}, error) {
+	if param < 0 {
+		return nil, errors.New("param can`t be less than zero")
+	}
 	var str string = ""
 	for i := 0; i < param; i++ {
 		str += " "
 	}
-	return str
+	return str, nil
 }
 
 //bool
@@ -71,14 +77,14 @@ func (bg boolGenerator) GenerateSlice() interface{} {
 	return []bool{false}
 }
 
-func (bg boolGenerator) GenerateWithParam(param int) interface{} {
+func (bg boolGenerator) GenerateWithParam(param int) (interface{}, error) {
 	if param == 0 {
-		return false
+		return false, nil
 	}
 	if param == 1 {
-		return true
+		return true, nil
 	}
-	return true
+	return nil, errors.New("in bool generator param 1 or 2")
 }
 
 //float
@@ -95,10 +101,13 @@ func (fg floatGenerator) GenerateSlice() interface{} {
 	return []float32{0.1}
 }
 
-func (fg floatGenerator) GenerateWithParam(param int) interface{} {
+func (fg floatGenerator) GenerateWithParam(param int) (interface{}, error) {
+	if param < 0 {
+		return nil, errors.New("param can`t be less than zero")
+	}
 	random := float32(rand.Intn(param))
 	random = random + 0.1
-	return random
+	return random, nil
 }
 
 func GenerateSome(generator Generator) interface{} {
@@ -106,8 +115,5 @@ func GenerateSome(generator Generator) interface{} {
 }
 
 func main() {
-	one := floatGenerator{}
-	a := one.GenerateWithParam(150)
-	fmt.Printf("%dasd\n", a)
 
 }
