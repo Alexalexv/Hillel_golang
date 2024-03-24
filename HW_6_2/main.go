@@ -14,12 +14,22 @@ func Publisher(ch chan<- int, wg *sync.WaitGroup) {
 
 }
 
+func SliceOfChanelsInit(n int) []chan int {
+	sl := make([]chan int, n)
+	for i := range sl {
+		sl[i] = make(chan int)
+	}
+	return sl
+}
+
 func ChanelBroadkaster(ch <-chan int, chSl []chan int, n int) {
 	for i := range ch {
+		//передаємо всі повідомлення в кожен канал слайсу
 		for a := 0; a < n; a++ {
 			chSl[a] <- i
 		}
 	}
+	//закриваємо кожен канал після передачі
 	for a := 0; a < n; a++ {
 		close(chSl[a])
 	}
@@ -34,13 +44,12 @@ func Sucscriber(chSl []chan int, n int, wg *sync.WaitGroup) {
 }
 
 func main() {
-	var wg sync.WaitGroup
-	n := 3
+	var (
+		wg sync.WaitGroup
+		n  int = 3
+	)
 	chanelMain := make(chan int)
-	chanelsSlice := make([]chan int, n)
-	for i := range chanelsSlice {
-		chanelsSlice[i] = make(chan int)
-	}
+	chanelsSlice := SliceOfChanelsInit(n)
 
 	go ChanelBroadkaster(chanelMain, chanelsSlice, n)
 
